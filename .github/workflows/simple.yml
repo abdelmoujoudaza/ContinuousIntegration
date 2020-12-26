@@ -1,10 +1,12 @@
 name: Shell Commands
 
-# on: [push]
 on:
-  push:
-  schedule:
-    - cron: "*/5 * * * *"
+  # push:
+  repository_dispatch:
+    types:
+      - build
+  # schedule:
+  #   - cron: "*/5 * * * *"
 
 jobs:
   run-shell-command:
@@ -21,6 +23,8 @@ jobs:
           import platform
           print(platform.processor())
         shell: python
+      - name: payload
+        run: echo "${{ github.event.client_payload.env }}"
   run-windows-command:
     runs-on: windows-latest
     needs: ["run-shell-command"]
