@@ -1,7 +1,13 @@
 name: Shell Commands
 
 on:
-  # push:
+  push:
+    branches:
+      - main
+    tags:
+      - v1
+    paths:
+      - "**.yml"
   repository_dispatch:
     types:
       - build
